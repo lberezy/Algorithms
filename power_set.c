@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 
 int main(int argc, char **argv){
@@ -9,9 +8,10 @@ int main(int argc, char **argv){
 
 	if(argc != 2) return EXIT_FAILURE;
 	int alpha_size = atoi(argv[1]);
+	char alpha[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	int set_size = pow(2,alpha_size);
-	printf("Set size: %d\n",set_size);
+	int set_size = 1<<alpha_size;
+	printf("Set size: %d\n---------",set_size);
 
 	/* initialise an alpha_size * set_size 2D array */
 	int **output = (int**)malloc(set_size*sizeof(int*));
@@ -25,8 +25,9 @@ int main(int argc, char **argv){
 
 	for(i=0; i < set_size; i++){
 		for(j=alpha_size; j>0; j--){
-			i&(1<<(j-1)) ? printf("1") : printf("0");
+			i&(1<<(j-1)) ? printf("%c",alpha[j-1]):printf("");
 		}
 		printf("\n");
 	}
 }
+	
