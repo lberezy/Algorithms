@@ -19,15 +19,16 @@ int main(int argc, char **argv){
 	for(i=0;i<set_size;i++){
 		output[i] = (int*)malloc(alpha_size*sizeof(int));
 	}
+
+
 	/* allocated 2D array */
 
 	 /* ended up not needing it*/
 
 	for(i=0; i < set_size; i++){
 		for(j=alpha_size; j>0; j--){
-			i&(1<<(j-1)) ? printf("%c",alpha[j-1]):printf("");
+			i&(1<<(j-1)) ? printf("%c",alpha[j-1]) : printf("");
 		}
 		printf("\n");
 	}
 }
-	

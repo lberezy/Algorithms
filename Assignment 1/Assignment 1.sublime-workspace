@@ -1,0 +1,596 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"new",
+				"new_node"
+			],
+			[
+				"common",
+				"common_words_titlecase"
+			],
+			[
+				"common_",
+				"common_words_titlecase"
+			],
+			[
+				"default",
+				"defaultdict"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "dict.c",
+			"settings":
+			{
+				"buffer_size": 316,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dict.h",
+			"settings":
+			{
+				"buffer_size": 134,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dict2.c",
+			"settings":
+			{
+				"buffer_size": 338,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dict2.h",
+			"settings":
+			{
+				"buffer_size": 134,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "errorcodes.h",
+			"settings":
+			{
+				"buffer_size": 196,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "list.c",
+			"settings":
+			{
+				"buffer_size": 95,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "list.h",
+			"settings":
+			{
+				"buffer_size": 157,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "skiplist.c",
+			"settings":
+			{
+				"buffer_size": 1809,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "skiplist.h",
+			"settings":
+			{
+				"buffer_size": 476,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/GCC_C.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ssc",
+				"Set Syntax: C"
+			],
+			[
+				"ssmake",
+				"Set Syntax: Makefile"
+			],
+			[
+				"pyth",
+				"SublimeREPL: Python"
+			],
+			[
+				"python",
+				"SublimeREPL: Python"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"sspyth",
+				"Set Syntax: Python"
+			],
+			[
+				"ssjava",
+				"Set Syntax: Java"
+			],
+			[
+				"ssja",
+				"Set Syntax: Java"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pep",
+				"User: Python PEP8 Autoformat"
+			],
+			[
+				"pytho",
+				"SublimeREPL: Python"
+			],
+			[
+				"",
+				"Package Control: Grab CA Certs"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"pep8",
+				"User: Python PEP8 Autoformat"
+			],
+			[
+				"intel",
+				"SublimeCodeIntel: Reset"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pyt",
+				"SublimeREPL: Python"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/skiplist.h",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict.h",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict2.h",
+		"/Users/lucas/Library/Application Support/Sublime Text 3/Packages/User/GCC_C.sublime-build",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/makefile.GNUmakefile",
+		"/Users/lucas/Documents/Code/C/Algorithms/linkedlist.c",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/Project 1/test.txt",
+		"/Users/lucas/Documents/Code/Java/HelloWorld.java",
+		"/Users/lucas/Documents/Code/C/Algorithms/power_set.c",
+		"/Users/lucas/Documents/Code/C/linkedlist.c",
+		"/Users/lucas/Documents/Code/C/mandelbrot.c",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/workshop2_ex3.py",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/workshop2_ex2.py",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/workshop2.py",
+		"/Users/lucas/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/lucas/Documents/Code/Python/Language & Computation/Project 1/project1.sublime-project"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"printf(\"%d\\n\",level(MAXLEVEL, PROB));",
+			"PROB",
+			"print",
+			"itertools.izip",
+			"...",
+			"\n..."
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"zip"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 8,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "dict.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dict.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dict2.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 338,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "dict2.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "errorcodes.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "list.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 95,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "list.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 157,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "skiplist.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1809,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "skiplist.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 476,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"project": "Assignment 1.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
