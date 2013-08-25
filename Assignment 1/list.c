@@ -33,7 +33,7 @@ node_t* make_node(int key, char *value) {
 	return node;
 }
 
-void insert(node_t *list, int key, char *value) {
+node_t* insert(node_t *list, int key, char *value) {
 	/*
 	Takes the head of a linked list and traverses it until it finds
 	an ordered place to insert a new node of <key:value>
@@ -41,13 +41,13 @@ void insert(node_t *list, int key, char *value) {
 
 	node_t *tmp;
 	/* hold position to left and right of insertion point */
-	node_t *left = list, *right = list;
+	node_t *left = NULL, *right = list;
 
 	if (list == NULL) {
 		if (DEBUG) {
 			printf("Warning, list == NULL in insert()!\n");
 		}
-		return;
+		return list;
 	}
 
 	/* find insertion point in list */
@@ -58,13 +58,21 @@ void insert(node_t *list, int key, char *value) {
 
 	/* insert the new node in-between left and right */
 	tmp = make_node(key, value);
-	left->next = tmp;
-	
+
+
 	if (left == right) {
 		tmp->next = NULL;
 	} else {
-	tmp->next = right; /* BUG */
+	tmp->next = right;
 	}
+
+		/* allow for insertion at head of list */
+	if (left != NULL) {
+		left->next = tmp;
+	} else {
+		list = tmp; /* tmp is new head of list */
+	}
+	return list; /* need to reassign list out of this scope */
 }
 
 node_t* search(node_t *list, int key) {
