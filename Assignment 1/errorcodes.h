@@ -9,6 +9,8 @@
 #define ERRORCODES_H
 
 #define EXIT_MISUSE 10
+	
 #define MALLOC_ERROR 20
+#define FILE_OPEN_ERROR 21
 
 #endif

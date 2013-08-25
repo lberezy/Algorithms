@@ -14,6 +14,7 @@
 
 #include "errorcodes.h"
 #include "skiplist.h"
+#include "misc.h"
 
 int level(int max_level, double p) {
 	/* 
@@ -38,26 +39,6 @@ int level(int max_level, double p) {
 	}
 
 	return level;
-}
-
-static void* safe_malloc(size_t size) {
-	/* 
-	Checks to see if malloc has failed, slightly safer than usual.
-	Probably pointless because a seg-fault can at least gives you a core
-	dump to look through later on, but this is "good practice".
-	*/
-
-	assert(size > 0);
-	void *tmp = malloc(size);
-	if (!tmp) {
-		/* printing is kind of pointless because it invokes malloc() again */
-		fprintf(stderr, "Memory allocation failed!");
-		fflush(stdout);
-		sleep(1);
-		exit(MALLOC_ERROR);
-	}
-
-	return tmp;
 }
 
 skipnode_t* make_skipnode(int level, int key, char *value) {
