@@ -59,7 +59,12 @@ void insert(node_t *list, int key, char *value) {
 	/* insert the new node in-between left and right */
 	tmp = make_node(key, value);
 	left->next = tmp;
-	tmp->next = right;
+	
+	if (left == right) {
+		tmp->next = NULL;
+	} else {
+	tmp->next = right; /* BUG */
+	}
 }
 
 node_t* search(node_t *list, int key) {
