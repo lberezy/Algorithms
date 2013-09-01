@@ -57,7 +57,7 @@ node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
 	while (right && right->key < key) {
 		left = right; /* bring forward left pointer */
 		right = right->next; /* move forward right pointer */
-		*comp_counter++; /* increment key comparison counter */
+		(*comp_counter)++; /* increment key comparison counter */
 	}
 
 	/* insert the new node in-between left and right */
@@ -66,8 +66,8 @@ node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
 		tmp->next = list;
 		list = tmp;
 	} else {
-	tmp->next = right;
-	left->next = tmp;
+		tmp->next = right;
+		left->next = tmp;
 	}
 	return list; /* need to reassign list out of this scope */
 }
@@ -77,6 +77,7 @@ node_t* search(node_t *list, int key, int *counter) {
 	Finds the first node that matches 'key' and returns a pointer to it, or
 	NULL if key not found.
 	*/
+
 	if (list == NULL) {
 		if (DEBUG) {
 			printf("Warning, list == NULL in insert()!\n");
@@ -86,7 +87,7 @@ node_t* search(node_t *list, int key, int *counter) {
 
 	while(list != NULL && list->key != key) {
 		list = list->next;
-		*counter++;
+		(*counter)++;
 	}
 	return list;
 }
@@ -94,19 +95,21 @@ node_t* search(node_t *list, int key, int *counter) {
 node_t* delete(node_t *list, int key, int *counter) {
 	/*
 	Finds the first node that matches 'key' and unlinks it from the list.
-	Returns a pointer to the unlinked node such that it can be freed. Returns
-	NULL if there are no matches (not guaranteed, only the value of node->next).
+	Returns the 
+	This deletion method is only applicable to a dictionary where it is known
+	that there exists only one node with a particular key.
 	*/
 
 	node_t *prev = list;
 
-	while(list && list->key != key) {
+	/* find the node to free */
+	while(list != NULL && list->key != key) {
 		prev = list;
 		list = list->next;
-		*counter++;
+		(*counter)++;
 	}
-	prev->next = list
-	return prev;
+	prev->next = list->next;
+	free(list);
 }
 
 void print_list(node_t *list) {
