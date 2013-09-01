@@ -33,10 +33,11 @@ node_t* make_node(int key, char *value) {
 	return node;
 }
 
-node_t* insert(node_t *list, int key, char *value) {
+node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
 	/*
 	Takes the head of a linked list and traverses it until it finds
 	an ordered place to insert a new node of <key:value>
+	
 	*/
 
 	node_t *tmp;
@@ -50,44 +51,47 @@ node_t* insert(node_t *list, int key, char *value) {
 		return list;
 	}
 
-	/* find insertion point in list */
-	while (right->next && right->key < key) {
+	tmp = make_node(key, value); /* node to insert */
+
+	/* find insertion point in tail */
+	while (right && right->key < key) {
 		left = right; /* bring forward left pointer */
 		right = right->next; /* move forward right pointer */
+		*comp_counter++; /* increment key comparison counter */
 	}
 
 	/* insert the new node in-between left and right */
-	tmp = make_node(key, value);
 
-
-	if (left == right) {
-		tmp->next = NULL;
+	if (left == NULL) {
+		tmp->next = list;
+		list = tmp;
 	} else {
 	tmp->next = right;
-	}
-
-		/* allow for insertion at head of list */
-	if (left != NULL) {
-		left->next = tmp;
-	} else {
-		list = tmp; /* tmp is new head of list */
+	left->next = tmp;
 	}
 	return list; /* need to reassign list out of this scope */
 }
 
-node_t* search(node_t *list, int key) {
+node_t* search(node_t *list, int key, int *counter) {
 	/*
-	Finds the first node that matches 'key' and returns a pointer to
-	the matching node.
+	Finds the first node that matches 'key' and returns a pointer to it, or
+	NULL if key not found.
 	*/
+	if (list == NULL) {
+		if (DEBUG) {
+			printf("Warning, list == NULL in insert()!\n");
+		}
+		return list;
+	}
 
-	while(list->next && list->key != key) {
+	while(list != NULL && list->key != key) {
 		list = list->next;
+		*counter++;
 	}
 	return list;
 }
 
-node_t* delete(node_t *list, int key) {
+node_t* delete(node_t *list, int key, int *counter) {
 	/*
 	Finds the first node that matches 'key' and unlinks it from the list.
 	Returns a pointer to the unlinked node such that it can be freed. Returns
@@ -96,10 +100,18 @@ node_t* delete(node_t *list, int key) {
 
 	node_t *prev = list;
 
-	while(list->next && list->key != key) {
+	while(list && list->key != key) {
 		prev = list;
 		list = list->next;
+		*counter++;
 	}
-
+	prev->next = list
 	return prev;
+}
+
+void print_list(node_t *list) {
+	while(list){
+		printf("%d %s\n", list->key, list->value);
+		list = list->next;
+	}
 }

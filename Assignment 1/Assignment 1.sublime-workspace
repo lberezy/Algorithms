@@ -24,10 +24,10 @@
 	"buffers":
 	[
 		{
-			"file": "dict.c",
+			"file": "Makefile",
 			"settings":
 			{
-				"buffer_size": 316,
+				"buffer_size": 586,
 				"line_ending": "Unix"
 			}
 		},
@@ -35,23 +35,15 @@
 			"file": "dict.h",
 			"settings":
 			{
-				"buffer_size": 134,
+				"buffer_size": 135,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "dict2.c",
+			"file": "dict.c",
 			"settings":
 			{
-				"buffer_size": 338,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dict2.h",
-			"settings":
-			{
-				"buffer_size": 134,
+				"buffer_size": 1320,
 				"line_ending": "Unix"
 			}
 		},
@@ -59,15 +51,34 @@
 			"file": "errorcodes.h",
 			"settings":
 			{
-				"buffer_size": 196,
+				"buffer_size": 225,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "list.c",
+			"file": "misc.c",
 			"settings":
 			{
-				"buffer_size": 95,
+				"buffer_size": 986,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "misc.h",
+			"settings":
+			{
+				"buffer_size": 123,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/*\n	Algorithms and Data Structures - Assignment 1\n	Part 1 - Linked List\n\n	Lucas Berezy, 2013\n*/\n\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n\n#include \"list.h\"\n#include \"misc.h\"\n#include \"debug.h\"\n\n\nnode_t* make_node(int key, char *value) {\n	/* \n	Allocates a linked list node and stores the key and value string\n	in the node. Returns a pointer to the new node. By default, next\n	points to NULL.\n	*/\n\n	node_t *node = (node_t*)malloc(sizeof(node_t));\n\n	node->key = key;\n	/* malloc some space for the string and copy it into the node*/\n	node->value = safe_malloc(strlen(value) + 1);\n	strcpy(node->value, value);\n\n	node->next = NULL;\n\n	return node;\n}\n\nnode_t* insert(node_t *list, int key, char *value) {\n	/*\n	Takes the head of a linked list and traverses it until it finds\n	an ordered place to insert a new node of <key:value>\n	\n	*/\n\n	node_t *tmp;\n	/* hold position to left and right of insertion point */\n	node_t *left = NULL, *right = list;\n\n	if (list == NULL) {\n		if (DEBUG) {\n			printf(\"Warning, list == NULL in insert()!\\n\");\n		}\n		return list;\n	}\n\n	/* find insertion point in list */\n	while (right->next && right->key < key) {\n		left = right; /* bring forward left pointer */\n		right = right->next; /* move forward right pointer */\n	}\n\n	/* insert the new node in-between left and right */\n	tmp = make_node(key, value);\n\n\n	if (left == right) {\n		tmp->next = NULL;\n	} else {\n	tmp->next = right;\n	}\n\n		/* allow for insertion at head of list */\n	if (left != NULL) {\n		left->next = tmp;\n	} else {\n		list = tmp; /* tmp is new head of list */\n	}\n	return list; /* need to reassign list out of this scope */\n}\n\nnode_t* search(node_t *list, int key) {\n	/*\n	Finds the first node that matches 'key' and returns a pointer to\n	the matching node.\n	*/\n	if (list == NULL) {\n		if (DEBUG) {\n			printf(\"Warning, list == NULL in insert()!\\n\");\n		}\n		return list;\n	}\n\n	while(list->next && list->key != key) {\n		list = list->next;\n	}\n	return list;\n}\n\nnode_t* delete(node_t *list, int key) {\n	/*\n	Finds the first node that matches 'key' and unlinks it from the list.\n	Returns a pointer to the unlinked node such that it can be freed. Returns\n	NULL if there are no matches (not guaranteed, only the value of node->next).\n	*/\n\n	node_t *prev = list;\n\n	while(list->next && list->key != key) {\n		prev = list;\n		list = list->next;\n	}\n\n	return prev;\n}\n\nvoid print_list(node_t *list) {\n	while(list){\n		printf(\"%d %s\\n\", list->key, list->value);\n		list = list->next;\n	}\n}\n",
+			"file": "list.c",
+			"file_size": 2455,
+			"file_write_time": 130219582440000000,
+			"settings":
+			{
+				"buffer_size": 2457,
 				"line_ending": "Unix"
 			}
 		},
@@ -75,16 +86,17 @@
 			"file": "list.h",
 			"settings":
 			{
-				"buffer_size": 157,
+				"buffer_size": 318,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "skiplist.c",
+			"file": "debug.h",
 			"settings":
 			{
-				"buffer_size": 1809,
-				"line_ending": "Unix"
+				"buffer_size": 49,
+				"line_ending": "Unix",
+				"name": "#ifdef DEBUG"
 			}
 		},
 		{
@@ -99,9 +111,17 @@
 	"build_system": "Packages/User/GCC_C.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 347.0,
 		"selected_items":
 		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"theme",
+				"SublimeREPL: Petite Chez Scheme"
+			],
 			[
 				"ssc",
 				"Set Syntax: C"
@@ -137,10 +157,6 @@
 			[
 				"ssja",
 				"Set Syntax: Java"
-			],
-			[
-				"instal",
-				"Package Control: Install Package"
 			],
 			[
 				"packa",
@@ -208,9 +224,21 @@
 	},
 	"file_history":
 	[
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/data_reading.c",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict.c",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/skiplist.c",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/misc.h",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/Makefile",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/list.h",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/list.c",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/misc.c",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict2.h",
+		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict2.c",
+		"/Users/lucas/Library/Application Support/Sublime Text 3/Packages/User/Split_Line.py",
+		"/Users/lucas/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/lucas/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/skiplist.h",
 		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict.h",
-		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/dict2.h",
 		"/Users/lucas/Library/Application Support/Sublime Text 3/Packages/User/GCC_C.sublime-build",
 		"/Users/lucas/Documents/Code/C/Algorithms/Assignment 1/makefile.GNUmakefile",
 		"/Users/lucas/Documents/Code/C/Algorithms/linkedlist.c",
@@ -242,6 +270,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"-Wall",
+			"gcc",
 			"printf(\"%d\\n\",level(MAXLEVEL, PROB));",
 			"PROB",
 			"print",
@@ -266,29 +296,29 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dict.c",
+					"file": "Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 316,
+						"buffer_size": 586,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								183,
+								183
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -302,15 +332,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 134,
+						"buffer_size": 135,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								135,
+								135
 							]
 						],
 						"settings":
@@ -325,46 +355,47 @@
 				},
 				{
 					"buffer": 2,
-					"file": "dict2.c",
+					"file": "dict.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 338,
+						"buffer_size": 1320,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1124,
+								1124
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 86.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "dict2.h",
+					"file": "errorcodes.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 134,
+						"buffer_size": 225,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								225,
+								225
 							]
 						],
 						"settings":
@@ -379,100 +410,19 @@
 				},
 				{
 					"buffer": 4,
-					"file": "errorcodes.h",
+					"file": "misc.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 196,
+						"buffer_size": 986,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "list.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 95,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "list.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 157,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "skiplist.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1809,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								175,
+								175
 							]
 						],
 						"settings":
@@ -487,7 +437,117 @@
 					"type": "text"
 				},
 				{
+					"buffer": 5,
+					"file": "misc.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 123,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "list.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2457,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								840,
+								840
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 445.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "list.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								310,
+								310
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
 					"buffer": 8,
+					"file": "debug.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 49,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								49,
+								49
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#ifdef DEBUG",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
 					"file": "skiplist.h",
 					"semi_transient": false,
 					"settings":
@@ -499,8 +559,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								70,
+								70
 							]
 						],
 						"settings":

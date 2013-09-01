@@ -1,3 +1,7 @@
+/*
+Miscellaneous functions common to both part 1 and 2 of the assignment.
+*/
+
 #ifndef MISC_H
 #define MISC_H
 
