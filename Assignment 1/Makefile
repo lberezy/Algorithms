@@ -3,7 +3,7 @@
 
 CC=gcc
 DEBUG=-g
-CFLAGS=-Wall $(DEBUG) -ansi
+CFLAGS=-Wall $(DEBUG) -ansi -O0
 
 all: listdict skipdict
 
