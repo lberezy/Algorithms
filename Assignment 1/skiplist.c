@@ -25,11 +25,14 @@ skiplist_t* make_skiplist(int max_level, double level_prob) {
 
 	skiplist_t *list = (skiplist_t*)safe_malloc(sizeof(skipnode_t*)
 												+ sizeof(int));
+
+	skipnode_t *blank = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
+	blank->next = (skipnode_t**)calloc(max_level, sizeof(skipnode_t*));
 	/* light initialisation */
 	list->max_level = max_level;
 	list->level_prob = level_prob;
 	list->curr_level = 0;
-	list->head = NULL;
+	list->head = blank;
 
 	return list;
 }
@@ -42,14 +45,14 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 
 
 	int i = dict->curr_level, j;
-	int new_level = level(dict->max_level, dict->level_prob);
+	int new_level = getlevel(dict->max_level, dict->level_prob);
 	skipnode_t *update[dict->max_level]; /* hold node pointers for update */
 	skipnode_t *list = dict->head;
 	skipnode_t *tmp;
 	tmp = make_skipnode(new_level, key, value);
-	/* skipnode_t *tmp2 = tmp; /* removing this line breaks the whole program */
+	 skipnode_t *tmp2 = tmp; /* removing this line breaks the whole program */
 
-	for(j = 0; j < dict->max_level + 1; j++){
+	for(j = 0; j < (dict->max_level + 1); j++){
 		update[j] = NULL;
 	}
 	/* memset(update, 0, dict->max_level + 1); */
@@ -89,7 +92,7 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 	}
 }
 
-int level(int max_level, double p) {
+int getlevel(int max_level, double p) {
 	/* 
 	Returns an integer >= 0 and < MAXLEVEL with a distribution
 	such that the probability of receiving 0 is 1/p, 1 is 1/(2p) etc. 
@@ -107,7 +110,7 @@ int level(int max_level, double p) {
 	}
 
 	/* generate the random level number */
-	while ( ((float)rand()/RAND_MAX) <= p && level <= max_level ) {  
+	while ( ((double)rand()/RAND_MAX) <= p && level <= max_level ) {  
 		++level;
 	}
 
