@@ -76,6 +76,7 @@ int main(int argc, char **argv) {
 	/* Print number of items and number of comparisons during insertion */
 	printf("%d\tInsertions:\t%d\n", item_counter, comp_counter);
 	comp_counter = 0; /* reset comparison counter */
+	printf("Comps: %d\n", counter(0));
 
 	if (DEBUG) {
 	printf("\nDone! Printing list:\n\n");

@@ -58,6 +58,7 @@ node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
 		left = right; /* bring forward left pointer */
 		right = right->next; /* move forward right pointer */
 		(*comp_counter)++; /* increment key comparison counter */
+		counter(1);
 	}
 
 	/* insert the new node in-between left and right */

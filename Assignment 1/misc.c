@@ -11,6 +11,21 @@ Miscellaneous functions common to both part 1 and 2 of the assignment.
 #include "errorcodes.h"
 #include "debug.h"
 
+int counter(int code) {
+	/*
+	Static incrementing counter. Calls to this function will increment the 
+	counter by 'code'. Any code < 0 will reset the counter to 0. Use a code
+	of 0 to return the current counter value.
+	*/
+	static int count = 0;
+	if (code >= 0) {
+		count += code;
+	} else { /* reset counter */
+		count = 0;
+	}
+	return count;
+}
+
 void* safe_malloc(const size_t size) {
 	/* 
 	Checks to see if malloc has failed, slightly safer than usual.
