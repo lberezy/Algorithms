@@ -11,6 +11,7 @@
 #define EXIT_MISUSE 10
 
 #define MALLOC_ERROR 20
-#define FILE_OPEN_ERROR 21
+#define CALLOC_ERROR 21
+#define FILE_OPEN_ERROR 30
 
 #endif

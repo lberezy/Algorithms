@@ -22,7 +22,7 @@ void* safe_malloc(const size_t size) {
 	void *tmp = malloc(size);
 	if (!tmp) {
 		/* printing is kind of pointless because it invokes malloc() again */
-		fprintf(stderr, "Memory allocation failed!\n");
+		fprintf(stderr, "(malloc)Memory allocation failed!\n");
 		fflush(stderr);
 		sleep(1);
 		exit(MALLOC_ERROR);
@@ -30,6 +30,7 @@ void* safe_malloc(const size_t size) {
 
 	return tmp;
 }
+
 
 FILE* safe_fopen(const char *fp, const char *mode) {
 	/*
