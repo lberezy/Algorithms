@@ -48,7 +48,7 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 	skipnode_t *list = dict->head;
 	skipnode_t *tmp = make_skipnode(new_level, key, value); /* new node */
 	/* hold node pointers for update */
-	skipnode_t **update = (skipnode_t**)safe_malloc(dict->max_level * sizeof(skipnode_t*));
+	skipnode_t **update = (skipnode_t**)safe_malloc((dict->max_level + 1) * sizeof(skipnode_t*));
 	assert(tmp != NULL);
 
 	/* discovered a bug in the llvm-gcc on OSX 10.8 here. Without the assert
@@ -141,19 +141,22 @@ skipnode_t* make_skipnode(int level, int key, char *value) {
 	*/
 
 	int i;
-	skipnode_t *node = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
+	skipnode_t *tmp = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
 
-	node->key = key;
-	/* malloc some space for the string and copy it into the node*/
-	node->value = safe_malloc(strlen(value) + 1);
-	strcpy(node->value, value);
 	/* bug isntroduced here */
 	assert(level >= 0);
 	/* could probably use calloc() to initialise node pointer array */
-	node->next = (skipnode_t**)malloc((level + 1) * sizeof(skipnode_t*));
+	/*tmp->next = (skipnode_t**)malloc((level + 1) * sizeof(skipnode_t*));
 	for (i=0;i<=level;i++) {
-		node->next[i] = NULL;
-	}
-	assert(node != NULL);
-	return node;
+		tmp->next[i] = NULL;
+	}*/
+	tmp->next = calloc(level + 1, sizeof(skipnode_t*));
+
+	tmp->key = key;
+	/* malloc some space for the string and copy it into the node*/
+	tmp->value = safe_malloc(strlen(value) + 1);
+	strcpy(tmp->value, value);
+
+	assert(tmp != NULL);
+	return tmp;
 }

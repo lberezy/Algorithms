@@ -12,10 +12,10 @@
 #define MAX_STRING_LEN 255
 
 
-typedef struct skipnode_t {
+typedef struct skipnode {
 	int key;
 	char *value;
-	struct skipnode_t **next;
+	struct skipnode **next;
 } skipnode_t;
 
 typedef struct skiplist {
