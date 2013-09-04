@@ -16,24 +16,24 @@
 #include "skiplist.h"
 #include "misc.h"
 
-skipdict_t* make_dict(int max_level, double level_prob) {
+skipdict_t* make_dict(int level_max, double prob_level) {
 	/*
 	Allocates space for a pointer to the head skip node and an integer
 	representation of the max_level of the list as a skip list container.
 	Returns a pointer to the empty list.
 	*/
 
-	skipdict_t *dict = (skipdict_t*)safe_malloc(sizeof(skipnode_t*));
+	skipdict_t *dict = (skipdict_t*)safe_malloc(sizeof(skipdict_t));
 
 	dict->head = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
 
 	
 	/* light initialisation */
-	dict->head->next = (skipnode_t**)calloc(max_level + 1, sizeof(skipnode_t*));
+	dict->head->next = (skipnode_t**)calloc(level_max + 1, sizeof(skipnode_t*));
 	dict->head->key = 0;
 	dict->head->value = NULL;
-	dict->max_level = max_level;
-	dict->level_prob = level_prob;
+	dict->max_level = level_max;
+	dict->level_prob = prob_level;
 	dict->curr_level = 0;
 
 	return dict;

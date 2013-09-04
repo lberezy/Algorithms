@@ -31,7 +31,9 @@ int main(int argc, char **argv) {
 	}
 	
 	/* copy the filename from argv[1] into heap space, same as strdup() */
-	fname = strcpy(safe_malloc(strlen(argv[1] + 1) * sizeof(char)), argv[1]);
+	/* found a super annoying bug here that would let this run fine on OSX
+	but not Solaris when using malloc and the filename with spaces. */
+	fname = strdup(argv[1]);
 	/* attempt to open file for reading */
 	fp = safe_fopen(fname, "r");
 

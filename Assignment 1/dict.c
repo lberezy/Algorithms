@@ -56,9 +56,8 @@ int main(int argc, char **argv) {
 		exit(EXIT_MISUSE);
 	}
 	
-	/* copy the filename from argv[1] into heap space, same as strdup() */
-	fname = strcpy(safe_malloc(strlen(argv[1] + 1)), argv[1]);
 	/* attempt to open file for reading */
+	fname = strdup(argv[1]);
 	fp = safe_fopen(fname, "r");
 
 

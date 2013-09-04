@@ -27,7 +27,7 @@ typedef struct skipdict {
 
 
 int getlevel(int max_level, double p);
-skipdict_t* make_dict(int max_level, double level_prob);
+skipdict_t* make_dict(int level_max, double prob_level);
 skipnode_t* search(skipdict_t* dict, int key);
 skipnode_t* make_skipnode(int level, int key, char *value);
 void insert(skipdict_t* dict, int key, char *value);
