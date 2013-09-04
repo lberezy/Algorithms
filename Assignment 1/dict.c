@@ -80,13 +80,14 @@ int main(int argc, char **argv) {
 	if (DEBUG) {
 	printf("\nDone! Printing list:\n\n");
 	print_list(dict);
+	printf("\nDone!\nSearch for a key: ____\b\b\b\b");
 	}
 
 	/* key lookup loop from stdin. Exits on any invalid input. Key must be less
 	than INT_MAX */
 	while (scanf("%d", &keybuff) == 1) {
 		scanf("%*[^\n]"); /* clear stdin line buffer */
-		/* printf("Search for a key: ____\b\b\b\b"); */
+
 		nodebuff = search(dict, keybuff);
 		printf("%d\t%s\t%d\n",
 				keybuff,

@@ -18,7 +18,8 @@
 
 int main(int argc, char **argv) {
 
-	int keybuff, item_counter = 0, comp_counter = 0;
+	int keybuff, item_counter = 0;
+	skipnode_t* nodebuff;
 	/* file name, input buffer array and file pointer */
 	char *fname, strbuff[MAX_LENGTH + 1];
 	FILE *fp;
@@ -48,18 +49,20 @@ int main(int argc, char **argv) {
 	if (DEBUG) {
 	printf("\nDone! Printing list:\n\n");
 	print_skipdict(dict);
+	printf("\nDone!\n");
+	printf("Search for a key: ____\b\b\b\b");
 	}
 
 	/* key lookup loop from stdin. Exits on any invalid input. Key must be less
 	than INT_MAX */
 	while (scanf("%d", &keybuff) == 1) {
 		scanf("%*[^\n]"); /* clear stdin line buffer */
-		/* printf("Search for a key: ____\b\b\b\b"); */
-		/* nodebuff = search(dict, keybuff, &comp_counter); */
-		/* printf("%d\t%s\t%d\n",
+
+		nodebuff = search(dict, keybuff);
+		printf("%d\t%s\t%d\n",
 				keybuff,
 				(nodebuff) ? nodebuff->value : "NOTFOUND",
-				comp_counter); */
+				counter(0));
 		counter(-1); /* reset counter */
 	}
 	return EXIT_SUCCESS;

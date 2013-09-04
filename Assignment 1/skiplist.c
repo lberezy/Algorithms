@@ -107,7 +107,6 @@ skipnode_t* search(skipdict_t* dict, int key) {
 
 	int i = dict->curr_level;
 	skipnode_t *list = dict->head;
-
 	counter(1); /* increment counter */
 	/* find node just before possible search match */
 	while (i >= 0) {
@@ -115,6 +114,7 @@ skipnode_t* search(skipdict_t* dict, int key) {
 			list = list->next[i];
 			counter(1); /* record comparison */
 		}
+		i--;
 	}
 	list = list->next[0]; /* move to next node */
 
@@ -183,7 +183,8 @@ skipnode_t* make_skipnode(int level, int key, char *value) {
 	/* tmp->next = (skipnode_t**)calloc(8, sizeof(skipnode_t*)); */
 	tmp->key = key;
 	/* malloc some space for the string and copy it into the node*/
-	tmp->value = (char*)safe_malloc((strlen(value) + 1) * sizeof(char));
+	tmp->value = strdup(value);
+	/*tmp->value = (char*)safe_malloc((strlen(value) + 1) * sizeof(char)); */
 	strcpy(tmp->value, value);
 
 	assert(tmp != NULL);
