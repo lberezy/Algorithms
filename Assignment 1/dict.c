@@ -45,7 +45,7 @@
 
 int main(int argc, char **argv) {
 
-	int keybuff, item_counter = 0, comp_counter = 0;
+	int keybuff, item_counter = 0;
 	/* file name and pointer */
 	char *fname, strbuff[MAX_LENGTH + 1];
 	FILE *fp;
@@ -67,16 +67,15 @@ int main(int argc, char **argv) {
 		if (dict == NULL) {
 			dict = make_node(keybuff, strbuff);
 		} else {
-			dict = insert(dict, keybuff, strbuff, &comp_counter);
+			dict = insert(dict, keybuff, strbuff);
 		}
 		item_counter++;
 		if (DEBUG) printf("%d %s\n", keybuff, strbuff);
 	}
 	fclose(fp);
 	/* Print number of items and number of comparisons during insertion */
-	printf("%d\tInsertions:\t%d\n", item_counter, comp_counter);
-	comp_counter = 0; /* reset comparison counter */
-	printf("Comps: %d\n", counter(0));
+	printf("%d\tInsertions:\t%d\n", item_counter, counter(0));
+	counter(-1); /* reset comparison counter */
 
 	if (DEBUG) {
 	printf("\nDone! Printing list:\n\n");
@@ -88,12 +87,12 @@ int main(int argc, char **argv) {
 	while (scanf("%d", &keybuff) == 1) {
 		scanf("%*[^\n]"); /* clear stdin line buffer */
 		/* printf("Search for a key: ____\b\b\b\b"); */
-		nodebuff = search(dict, keybuff, &comp_counter);
+		nodebuff = search(dict, keybuff);
 		printf("%d\t%s\t%d\n",
 				keybuff,
 				(nodebuff) ? nodebuff->value : "NOTFOUND",
-				comp_counter);
-		comp_counter = 0;
+				counter(0));
+		counter(-1); /* reset counter */
 	}
 	return EXIT_SUCCESS;
 }

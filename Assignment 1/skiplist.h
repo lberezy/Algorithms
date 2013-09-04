@@ -27,7 +27,7 @@ typedef struct skiplist {
 
 
 int getlevel(int max_level, double p);
-skiplist_t* make_skiplist(int max_level, double level_prob);
+skiplist_t* make_dict(int max_level, double level_prob);
 skipnode_t* make_skipnode(int level, int key, char *value);
 void insert(skiplist_t* dict, int key, char *value, int *comp_counter);
 void print_skipdict(skiplist_t *dict);

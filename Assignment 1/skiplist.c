@@ -16,7 +16,7 @@
 #include "skiplist.h"
 #include "misc.h"
 
-skiplist_t* make_skiplist(int max_level, double level_prob) {
+skiplist_t* make_dict(int max_level, double level_prob) {
 	/*
 	Allocates space for a pointer to the head skip node and an integer
 	representation of the max_level of the list as a skip list container.
@@ -43,18 +43,18 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 	Needs to keep track of list nodes to update at each level.
 	*/
 
-
 	int i = dict->curr_level, j;
 	int new_level = getlevel(dict->max_level, dict->level_prob);
-	skipnode_t *update[dict->max_level]; /* hold node pointers for update */
+	skipnode_t **update; /* hold node pointers for update */
 	skipnode_t *list = dict->head;
-	skipnode_t *tmp;
-	tmp = make_skipnode(new_level, key, value);
+	skipnode_t *tmp = make_skipnode(new_level, key, value); /* new node */
+	update = (skipnode_t**)safe_malloc(sizeof(dict->max_level));
 	assert(tmp != NULL);
+
 	/* discovered a bug in the llvm-gcc on OSX 10.8 here. Without the assert
-	or anything referencing tmp, tmp is always 0x0 in the scope of the next if
+	or anything referencing tmp, tmp is always 0x0 in the scope of the next 'if'
 	statement. dict->head would always be 0x0. */
-	
+
 	for(j = 0; j < (dict->max_level + 1); j++){
 		update[j] = NULL;
 	}
@@ -147,13 +147,13 @@ skipnode_t* make_skipnode(int level, int key, char *value) {
 	/* malloc some space for the string and copy it into the node*/
 	node->value = safe_malloc(strlen(value) + 1);
 	strcpy(node->value, value);
-	
-	node->next = (skipnode_t**)calloc(level + 1, sizeof(skipnode_t*));
+	/* bug introduced here */
+	assert(level >= 0);
 	/* could probably use calloc() to initialise node pointer array */
-	/*node->next = (skipnode_t**)malloc((level + 1) * sizeof(skipnode_t*));
+	node->next = (skipnode_t**)malloc((level + 1) * sizeof(skipnode_t*));
 	for (i=0;i<=level;i++) {
 		node->next[i] = NULL;
-	} */
+	}
 	assert(node != NULL);
 	return node;
 }

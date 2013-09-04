@@ -19,10 +19,10 @@
 int main(int argc, char **argv) {
 
 	int keybuff, item_counter = 0, comp_counter = 0;
-	/* file name and pointer */
+	/* file name, input buffer array and file pointer */
 	char *fname, strbuff[MAX_LENGTH + 1];
 	FILE *fp;
-	skiplist_t *dict = make_skiplist(MAX_LEVEL, LEVEL_PROB);
+	skiplist_t *dict = make_dict(MAX_LEVEL, LEVEL_PROB);
 
 	if(argc != 2) {
 		printf("Usage: %s filename\n",argv[0]);

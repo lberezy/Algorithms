@@ -33,8 +33,8 @@ void* safe_malloc(const size_t size) {
 	dump to look through later on, but this is "good practice".
 	*/
 
-	assert(size > 0);
 	void *tmp = malloc(size);
+	assert(size > 0);
 	if (!tmp) {
 		/* printing is kind of pointless because it invokes malloc() again */
 		fprintf(stderr, "(malloc)Memory allocation failed!\n");

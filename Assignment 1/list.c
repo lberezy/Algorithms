@@ -33,7 +33,7 @@ node_t* make_node(int key, char *value) {
 	return node;
 }
 
-node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
+node_t* insert(node_t *list, int key, char *value) {
 	/*
 	Takes the head of a linked list and traverses it until it finds
 	an ordered place to insert a new node of <key:value>
@@ -57,8 +57,8 @@ node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
 	while (right && right->key < key) {
 		left = right; /* bring forward left pointer */
 		right = right->next; /* move forward right pointer */
-		(*comp_counter)++; /* increment key comparison counter */
-		counter(1);
+		counter(1); /* increment key comparison counter */
+
 	}
 
 	/* insert the new node in-between left and right */
@@ -73,7 +73,7 @@ node_t* insert(node_t *list, int key, char *value, int *comp_counter) {
 	return list; /* need to reassign list out of this scope */
 }
 
-node_t* search(node_t *list, int key, int *counter) {
+node_t* search(node_t *list, int key) {
 	/*
 	Finds the first node that matches 'key' and returns a pointer to it, or
 	NULL if key not found.
@@ -85,15 +85,15 @@ node_t* search(node_t *list, int key, int *counter) {
 		}
 		return list;
 	}
-
+	counter(1); /* prime the counter by 1 */
 	while(list != NULL && list->key != key) {
 		list = list->next;
-		(*counter)++;
+		counter(1);
 	}
 	return list;
 }
 
-node_t* delete(node_t *list, int key, int *counter) {
+node_t* delete(node_t *list, int key) {
 	/*
 	Finds the first node that matches 'key' and unlinks it from the list.
 	Returns the 
@@ -104,10 +104,11 @@ node_t* delete(node_t *list, int key, int *counter) {
 	node_t *prev = list;
 
 	/* find the node to free */
+	counter(1); /* prime the counter by 1 */
 	while(list != NULL && list->key != key) {
 		prev = list;
 		list = list->next;
-		(*counter)++;
+		counter(1);
 	}
 	prev->next = list->next;
 	free(list);
