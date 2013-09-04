@@ -44,6 +44,7 @@ node_t* insert(node_t *list, int key, char *value) {
 	/* hold position to left and right of insertion point */
 	node_t *left = NULL, *right = list;
 
+	counter(1);
 	if (list == NULL) {
 		if (DEBUG) {
 			printf("Warning, list == NULL in insert()!\n");
@@ -96,22 +97,28 @@ node_t* search(node_t *list, int key) {
 node_t* delete(node_t *list, int key) {
 	/*
 	Finds the first node that matches 'key' and unlinks it from the list.
-	Returns the 
 	This deletion method is only applicable to a dictionary where it is known
 	that there exists only one node with a particular key.
+	Returns a pointer to the updated list (for freeing head node).
 	*/
 
-	node_t *prev = list;
+	node_t *tmp, *prev = list;
 
 	/* find the node to free */
 	counter(1); /* prime the counter by 1 */
-	while(list != NULL && list->key != key) {
+
+	while(tmp != NULL && list->key != key) {
 		prev = list;
-		list = list->next;
+		tmp = tmp->next;
 		counter(1);
 	}
-	prev->next = list->next;
-	free(list);
+	if(prev == list) {
+		free(prev);
+		return list->next;
+	}
+	prev->next = tmp->next;
+	free(tmp);
+	return list;
 }
 
 void print_list(node_t *list) {

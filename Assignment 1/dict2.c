@@ -41,6 +41,7 @@ int main(int argc, char **argv) {
 	/* build the dictionary */
 	while (fscanf(fp, "%d %s", &keybuff, strbuff) == 2){
 		insert(dict, keybuff, strbuff);
+		item_counter++;
 		if (DEBUG) printf("%d %s\n", keybuff, strbuff);
 	}
 	fclose(fp);

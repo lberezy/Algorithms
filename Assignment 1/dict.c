@@ -98,7 +98,6 @@ int main(int argc, char **argv) {
 	/* test delete function */
 		while (scanf("%d", &keybuff) == 1) {
 		scanf("%*[^\n]"); /* clear stdin line buffer */
-		/* printf("Search for a key: ____\b\b\b\b"); */
 		nodebuff = delete(dict, keybuff);
 		printf("%d\t%s\t%d\n",
 				keybuff,

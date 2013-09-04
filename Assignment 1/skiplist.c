@@ -47,17 +47,18 @@ void insert(skipdict_t* dict, int key, char *value) {
 
 	int i = dict->curr_level, j;
 	int new_level = getlevel(dict->max_level, dict->level_prob);
-	assert(new_level <= dict->max_level);
 	skipnode_t *list = dict->head;
 	skipnode_t *tmp = make_skipnode(new_level, key, value); /* new node */
 	/* hold node pointers for update */
-	skipnode_t **update = (skipnode_t**)safe_malloc((dict->max_level + 1) * sizeof(skipnode_t*));
+	skipnode_t **update = (skipnode_t**)safe_malloc((dict->max_level + 1) 
+													* sizeof(skipnode_t*));
 
 	assert(tmp != NULL);
+	counter(1);
 
-	/* discovered a bug in the llvm-gcc on OSX 10.8 here. Without the assert
-	or anything referencing tmp, tmp is always 0x0 in the scope of the next 'if'
-	statement. dict->head would always be 0x0. */
+	/* discovered a bug in the llvm-gcc on OSX 10.8 here, maybe. Without the 
+	assert or anything referencing tmp, tmp is always 0x0 in the scope of the 
+	next 'if' statement. dict->head would always be 0x0. */
 
 	for(j = 0; j <= (dict->max_level); j++){
 		update[j] = NULL;
@@ -79,11 +80,11 @@ void insert(skipdict_t* dict, int key, char *value) {
 	}
 
 	list = list->next[0]; /* jump across one place incase key exists already */
-	if (list && list->key == key) { /* update into set of dictionary items - no dupes*/
+	if (list && list->key == key) { /* update into set of dictionary items */
 		counter(1); /* record comparison */
 		/* update node with new value */
 		list->value = strdup(value);
-	} else if (list == NULL || list->key != key) { /* need to insert the new node */
+	} else if (list == NULL || list->key != key) { /* need to insert new node */
 
 		if (new_level > dict->curr_level){ /* handle new tallest node */
 			/* when updating, header needs to point to new highest levels */
