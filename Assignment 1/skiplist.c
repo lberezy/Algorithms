@@ -26,8 +26,12 @@ skipdict_t* make_dict(int max_level, double level_prob) {
 	skipdict_t *dict = (skipdict_t*)safe_malloc(sizeof(skipnode_t*));
 
 	dict->head = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
-	dict->head->next = (skipnode_t**)calloc(max_level + 1, sizeof(skipnode_t*));
+
+	
 	/* light initialisation */
+	dict->head->next = (skipnode_t**)calloc(max_level + 1, sizeof(skipnode_t*));
+	dict->head->key = 0;
+	dict->head->value = NULL;
 	dict->max_level = max_level;
 	dict->level_prob = level_prob;
 	dict->curr_level = 0;
@@ -48,7 +52,7 @@ void insert(skipdict_t* dict, int key, char *value) {
 	skipnode_t *tmp = make_skipnode(new_level, key, value); /* new node */
 	/* hold node pointers for update */
 	skipnode_t **update = (skipnode_t**)safe_malloc((dict->max_level + 1) * sizeof(skipnode_t*));
-	memset(update, 0, dict->max_level + 1);
+
 	assert(tmp != NULL);
 
 	/* discovered a bug in the llvm-gcc on OSX 10.8 here. Without the assert
@@ -78,8 +82,7 @@ void insert(skipdict_t* dict, int key, char *value) {
 	if (list && list->key == key) { /* update into set of dictionary items - no dupes*/
 		counter(1); /* record comparison */
 		/* update node with new value */
-		list->value = (char*)safe_malloc((strlen(value) + 1) * sizeof(char));
-		strcpy(list->value, value);
+		list->value = strdup(value);
 	} else if (list == NULL || list->key != key) { /* need to insert the new node */
 
 		if (new_level > dict->curr_level){ /* handle new tallest node */
@@ -182,10 +185,9 @@ skipnode_t* make_skipnode(int level, int key, char *value) {
 
 	/* tmp->next = (skipnode_t**)calloc(8, sizeof(skipnode_t*)); */
 	tmp->key = key;
-	/* malloc some space for the string and copy it into the node*/
+	/* copy value string into node */
 	tmp->value = strdup(value);
 	/*tmp->value = (char*)safe_malloc((strlen(value) + 1) * sizeof(char)); */
-	strcpy(tmp->value, value);
 
 	assert(tmp != NULL);
 	return tmp;
