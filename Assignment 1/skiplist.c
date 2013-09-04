@@ -123,7 +123,7 @@ skipnode_t* search(skipdict_t* dict, int key) {
 
 	counter(1); /* record key comparison */
 	/* return the node if it matches, else NULL */
-	if (list->key != key) list = NULL;
+	if (list == NULL || list->key != key) list = NULL;
 	return list;
 }
 
