@@ -16,28 +16,26 @@
 #include "skiplist.h"
 #include "misc.h"
 
-skiplist_t* make_dict(int max_level, double level_prob) {
+skipdict_t* make_dict(int max_level, double level_prob) {
 	/*
 	Allocates space for a pointer to the head skip node and an integer
 	representation of the max_level of the list as a skip list container.
 	Returns a pointer to the empty list.
 	*/
 
-	skiplist_t *list = (skiplist_t*)safe_malloc(sizeof(skipnode_t*)
-												+ sizeof(int));
+	skipdict_t *dict = (skipdict_t*)safe_malloc(sizeof(skipnode_t*));
 
-	skipnode_t *blank = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
-	blank->next = (skipnode_t**)calloc(max_level, sizeof(skipnode_t*));
+	dict->head = (skipnode_t*)safe_malloc(sizeof(skipnode_t));
+	dict->head->next = (skipnode_t**)calloc(max_level + 1, sizeof(skipnode_t*));
 	/* light initialisation */
-	list->max_level = max_level;
-	list->level_prob = level_prob;
-	list->curr_level = 0;
-	list->head = blank;
+	dict->max_level = max_level;
+	dict->level_prob = level_prob;
+	dict->curr_level = 0;
 
-	return list;
+	return dict;
 }
 
-void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
+void insert(skipdict_t* dict, int key, char *value) {
 	/*
 	Inserts a key:value pair into the given dictionary, counts key comparisons.
 	Needs to keep track of list nodes to update at each level.
@@ -45,17 +43,19 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 
 	int i = dict->curr_level, j;
 	int new_level = getlevel(dict->max_level, dict->level_prob);
+	assert(new_level <= dict->max_level);
 	skipnode_t *list = dict->head;
 	skipnode_t *tmp = make_skipnode(new_level, key, value); /* new node */
 	/* hold node pointers for update */
 	skipnode_t **update = (skipnode_t**)safe_malloc((dict->max_level + 1) * sizeof(skipnode_t*));
+	memset(update, 0, dict->max_level + 1);
 	assert(tmp != NULL);
 
 	/* discovered a bug in the llvm-gcc on OSX 10.8 here. Without the assert
 	or anything referencing tmp, tmp is always 0x0 in the scope of the next 'if'
 	statement. dict->head would always be 0x0. */
 
-	for(j = 0; j < (dict->max_level + 1); j++){
+	for(j = 0; j <= (dict->max_level); j++){
 		update[j] = NULL;
 	}
 	/* memset(update, 0, dict->max_level + 1); */
@@ -67,22 +67,25 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 
 	/* find location to insert */
 	while (i >= 0) { /* traverse levels of list, from sparse (top) to dense */
-		while(list->next[i] && list->next[i]->key < key) {
+		while(list->next[i] != NULL && list->next[i]->key < key) {
 			list = list->next[i];
-			(*comp_counter)++; /* record comparison */
+			counter(1); /* record comparison */
 		}
 		update[i--] = list; /* store pointer to node and go down a level */
 	}
 
 	list = list->next[0]; /* jump across one place incase key exists already */
 	if (list && list->key == key) { /* update into set of dictionary items - no dupes*/
-		list->value = safe_malloc(strlen(value) + 1); /* easier than linking 
-		new tmp node */
-	} else { /* need to insert the new node */
+		counter(1); /* record comparison */
+		/* update node with new value */
+		list->value = (char*)safe_malloc((strlen(value) + 1) * sizeof(char));
+		strcpy(list->value, value);
+	} else if (list == NULL || list->key != key) { /* need to insert the new node */
 
 		if (new_level > dict->curr_level){ /* handle new tallest node */
 			/* when updating, header needs to point to new highest levels */
-			for (i = dict->curr_level + 1; i <= new_level; i++) {
+			for (i = dict->curr_level + 1;
+				i <= new_level && i <= dict->max_level; i++) {
 				update[i] = dict->head;
 			}
 			dict->curr_level = new_level; /* update dicts most extended level */
@@ -93,6 +96,32 @@ void insert(skiplist_t* dict, int key, char *value, int *comp_counter) {
 			update[i]->next[i] = tmp;
 		}
 	}
+}
+
+
+skipnode_t* search(skipdict_t* dict, int key) {
+	/*
+	Searches a skipdict for a key. Returns a pointer to the node if found, else
+	returns a null pointer.
+	*/
+
+	int i = dict->curr_level;
+	skipnode_t *list = dict->head;
+
+	counter(1); /* increment counter */
+	/* find node just before possible search match */
+	while (i >= 0) {
+		while (list->next[i] && list->next[i]->key < key) {
+			list = list->next[i];
+			counter(1); /* record comparison */
+		}
+	}
+	list = list->next[0]; /* move to next node */
+
+	counter(1); /* record key comparison */
+	/* return the node if it matches, else NULL */
+	if (list->key != key) list = NULL;
+	return list;
 }
 
 int getlevel(int max_level, double p) {
@@ -113,14 +142,14 @@ int getlevel(int max_level, double p) {
 	}
 
 	/* generate the random level number */
-	while ( ((double)rand()/RAND_MAX) <= p && level <= max_level ) {  
+	while ( ((double)rand()/RAND_MAX) <= p && level < max_level ) {  
 		++level;
 	}
 
 	return level;
 }
 
-void print_skipdict(skiplist_t *dict) {
+void print_skipdict(skipdict_t *dict) {
 	/*
 	Traverse the bottom layer of the skipdict and prints each value.
 	*/
@@ -146,15 +175,15 @@ skipnode_t* make_skipnode(int level, int key, char *value) {
 	/* bug isntroduced here */
 	assert(level >= 0);
 	/* could probably use calloc() to initialise node pointer array */
-	/*tmp->next = (skipnode_t**)malloc((level + 1) * sizeof(skipnode_t*));
+	tmp->next = (skipnode_t**)malloc((level + 1) * sizeof(skipnode_t*));
 	for (i=0;i<=level;i++) {
 		tmp->next[i] = NULL;
-	}*/
-	tmp->next = calloc(level + 1, sizeof(skipnode_t*));
+	}
 
+	/* tmp->next = (skipnode_t**)calloc(8, sizeof(skipnode_t*)); */
 	tmp->key = key;
 	/* malloc some space for the string and copy it into the node*/
-	tmp->value = safe_malloc(strlen(value) + 1);
+	tmp->value = (char*)safe_malloc((strlen(value) + 1) * sizeof(char));
 	strcpy(tmp->value, value);
 
 	assert(tmp != NULL);
