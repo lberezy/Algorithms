@@ -131,8 +131,8 @@ skipnode_t* search(skipdict_t* dict, int key) {
 int getlevel(int max_level, double p) {
 	/* 
 	Returns an integer >= 0 and < MAXLEVEL with a distribution
-	such that the probability of receiving 0 is 1/p, 1 is 1/(2p) etc. 
-	p(n) = 1/((n+1)*p)
+	such that the probability of receiving 0 is n*p, 1 is 2*p etc. 
+	p(n) = (n+1)*p
 	*/
 
 	int level = 0;

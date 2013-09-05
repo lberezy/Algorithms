@@ -1,0 +1,24 @@
+dict.c dict.h debug.h dict2.c dict2.h errorcodes.h list.c list.h misc.c misc.h skiplist.c skiplist.h test_10.txt test_20.txt test_50.txt test_100.txt test_200.txt test_500.txt test_1000.txt test_10r.txt test_20r.txt test_50r.txt test_100r.txt test_200r.txt test_500r.txt test_1000r.txt
+
+
+This: 
+
+
+dict.c dict.h debug.h dict2.c dict2.h errorcodes.h list.c list.h misc.c misc.h skiplist.c skiplist.h expts.pdf
+
+
+ test_10.txt
+debug.h                         test_100.txt
+dict.c                          test_1000.txt
+dict.h                          test_1000r.txt
+dict.o                          test_100r.txt
+dict2.c                         test_10r.txt
+dict2.h                         test_20.txt
+dict2.o                         test_200.txt
+errorcodes.h                    test_200r.txt
+insert_random.png               test_20r.txt
+list.c                          test_50.txt
+list.h                          test_500.txt
+list.o                          test_500r.txt
+listdict                        test_50r.txt
+misc.c                          test_data.txt
