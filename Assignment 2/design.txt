@@ -1,0 +1,38 @@
+Problem comprehension and assumptions:
+
+From a selection of multiple sources (aid facilities), find the quickest
+(``shortest'') path to a single destination (accident site). The conditions for
+an appropriate source are that it has:
+	The shortest travel time /to/ the destination.
+and
+	Can supply one or more of requested items for aid.
+
+The item(s) request can be fulfilled by multiple sources.
+Travel time between nodes is directional and measured in hours and thus
+there exist no negative cycles or weights.
+
+
+Useful resources:
+	http://indiageospatialforum.org/pdf/M.S.Saran.pdf (real world example)
+	http://gis.stackexchange.com/questions/63073/using-dijkstras-algorithm-for-multiple-source-to-single-destination-shortest-pa
+
+
+Approach:
+	For each source, use Dijkstra's algorithm to compute the shortest path from
+	the source to the accident location. For N sources and the use of a min-heap
+	in the implementation of Dijkstra's algorithm, this would be
+	O(N|E + V|log|V|). Using a Fibonacci heap would improve this.
+	Uppon reconsideration, 
+
+Alternative approach:
+	The Floyd-Warshall algorithm allows the graph to be processed to find
+	the shortest path between all points. Thus, the shortest path from A to C
+	can be computed as the shortest path from A to B and then from B to C.
+Alternative approach:
+	In order to solve this multiple source shortest path problem, a path tree 
+	from one source to a destination could be constructed and
+	at each source, this tree only needs to be altered to compute the shortest
+	path. This would be more appropriate if there were multiple sources and
+	destinations (e.g. choosing the location of a factory such that it was
+	optimally positioned near many shipping ports around a map from a set
+	of possible build sites)
