@@ -5,7 +5,15 @@ CC=gcc
 DEBUG=-g
 CFLAGS=-Wall $(DEBUG) -ansi -O0 -pedantic
 
-all: listdict skipdict
+fresh: clean, all
+
+all: helpme
+
+helpme: helpme.o 
+	$(CC) $(CFLAGS) helpme helpme.o
+
+helpme.o: helpme.c helpme.h
+	$(CC) $(CFLAGS) -c -Wall helpme.c
 
 listdict: misc.o dict.o list.o 
 	$(CC) $(CFLAGS) -o listdict dict.o list.o misc.o
