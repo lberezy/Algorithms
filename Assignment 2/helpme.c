@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	} else {
 		fname = strdup(argv[1]);
-		if (fp = (FILE*)fopen(fname, "r") == NULL) {
+		if ((fp = fopen(fname, "r"))== NULL) {
 			perror("Error: Could not open file!");
 			exit(EXIT_FAILURE);
 		}

@@ -1,6 +1,6 @@
 CC=gcc
 DEBUG=-g
-CFLAGS=-Wall $(DEBUG)
+CFLAGS=-Wall $(DEBUG) -ansi -pedantic
 
 fresh: clean all
 
