@@ -49,8 +49,9 @@ int encode_supplies(char *str) {
 int main(int argc, char const *argv[])
 {
 	char *fname, loc_name[256], supply_string[32];
+	char str_buff[256];
 	FILE *fp;
-	int supply_data;
+	int supply_data, n_nodes = 0;
 
 	/* try to load the database */
 	if(argc != 2) {
@@ -59,7 +60,7 @@ int main(int argc, char const *argv[])
 	} else {
 		fname = strdup(argv[1]);
 		if (fp = (FILE*)fopen(fname, "r") == NULL) {
-			puts("Couldn't open file!");
+			perror("Error: Could not open file!");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -70,6 +71,16 @@ int main(int argc, char const *argv[])
 	scanf("%s", supply_string);
 	supply_data = encode_supplies(supply_string);
 	printf("%d", supply_data);
+
+	/* tokenise input DB */
+
+	while (fgets(str_buff, strlen(str_buff), fp) != NULL) {
+		fputs(str_buff, stdout);
+	}
+
+
+	/* don't forget to close file */
+	/* fclose(fp); */
 
 	return EXIT_SUCCESS;
 }

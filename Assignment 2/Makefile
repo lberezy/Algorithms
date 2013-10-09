@@ -1,9 +1,6 @@
-# Based off supplied makefile
-
-
 CC=gcc
 DEBUG=-g
-CFLAGS=-Wall $(DEBUG) -ansi -O0 -pedantic
+CFLAGS=-Wall $(DEBUG)
 
 fresh: clean all
 
@@ -12,11 +9,11 @@ all: helpme
 helpme: helpme.o 
 	$(CC) $(CFLAGS) -o helpme helpme.o
 
-helpme.o: helpme.c helpme.h graph.o
+helpme.o:
 	$(CC) $(CFLAGS) -c helpme.c
 
-graph.o: graph.c graph.h
-	$(CC) $(CFLAGS) -c helpme.c
+graph.o:
+	$(CC) $(CFLAGS) -c graph.o graph.c graph.h 
 
 clean:
 	rm -rf *.o helpme
