@@ -22,4 +22,4 @@ clean:
 	rm -rf *.o helpme
 
 test: fresh
-	./helpme WestAfricaDatabase 
+	./helpme helpfiles/WestAfricanDB.txt
