@@ -11,11 +11,13 @@ The item(s) request can be fulfilled by multiple sources.
 Travel time between nodes is directional and measured in hours and thus
 there exist no negative cycles or weights.
 
+----
 
 Useful resources:
 	http://indiageospatialforum.org/pdf/M.S.Saran.pdf (real world example)
 	http://gis.stackexchange.com/questions/63073/using-dijkstras-algorithm-for-multiple-source-to-single-destination-shortest-pa
 
+----
 
 Approach:
 	For each source, use Dijkstra's algorithm to compute the shortest path from
@@ -26,8 +28,16 @@ Approach:
 
 Alternative approach:
 	The Floyd-Warshall algorithm allows the graph to be processed to find
-	the shortest path between all points. Thus, the shortest path from A to C
+	the shortest paths between all points. Thus, the shortest path from A to C
 	can be computed as the shortest path from A to B and then from B to C.
+	For each type of aid, iterate through all sources of aid to find the place
+	that can supply the required aid with the shortest travel time to the
+	incident. After the floyd-warshall graph representation is complete, this
+	should take A*(V-1) operations, where A is the number of aid items required.
+	In the case where no supplies are required, simply find the quickest path 
+	from an aid location to the incident site.
+	Don't forget to handle unconnected locations.
+	
 Alternative approach:
 	In order to solve this multiple source shortest path problem, a path tree 
 	from one source to a destination could be constructed and
@@ -36,3 +46,24 @@ Alternative approach:
 	destinations (e.g. choosing the location of a factory such that it was
 	optimally positioned near many shipping ports around a map from a set
 	of possible build sites)
+
+----
+
+	information on supplies is stored in a bit-field with the following
+	format:
+	Boolean values for existance of resource.
+	..00000XXXXX
+	------------
+	..00000BFWDM
+
+	– B: blankets											(16)
+	– F: food												(8)
+	– W: water												(4)
+	– D: digging equipment									(2)
+	– M: medicine											(1)
+	– X: no supplies or assistance available from this town	(0) (ALL ZERO)
+
+	Each supply has the integer representation as above and specified in #define
+	This method allows for testing iteratively testing elements (>>= i &..) and 
+	multiple elements at a time.
+	This bit representation can fit inside a short int to save space.

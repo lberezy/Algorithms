@@ -5,36 +5,21 @@ CC=gcc
 DEBUG=-g
 CFLAGS=-Wall $(DEBUG) -ansi -O0 -pedantic
 
-fresh: clean, all
+fresh: clean all
 
 all: helpme
 
 helpme: helpme.o 
-	$(CC) $(CFLAGS) helpme helpme.o
+	$(CC) $(CFLAGS) -o helpme helpme.o
 
-helpme.o: helpme.c helpme.h
-	$(CC) $(CFLAGS) -c -Wall helpme.c
+helpme.o: helpme.c helpme.h graph.o
+	$(CC) $(CFLAGS) -c helpme.c
 
-listdict: misc.o dict.o list.o 
-	$(CC) $(CFLAGS) -o listdict dict.o list.o misc.o
-
-skipdict: misc.o dict2.o skiplist.o 
-	$(CC) $(CFLAGS) -o skipdict dict2.o skiplist.o misc.o
-
-list.o: list.c list.h 
-	$(CC) $(CFLAGS) -c list.c
-
-skiplist.o: skiplist.c skiplist.h
-	$(CC) $(CFLAGS) -c skiplist.c
-
-dict.o: dict.c dict.h 
-	$(CC) $(CFLAGS) -c dict.c
-
-dict2.o: dict2.c dict2.h
-	$(CC) $(CFLAGS) -c dict2.c
-
-misc.o: misc.c misc.h
-	$(CC) $(CFLAGS) -c misc.c
+graph.o: graph.c graph.h
+	$(CC) $(CFLAGS) -c helpme.c
 
 clean:
-	rm -rf *.o listdict skipdict
+	rm -rf *.o helpme
+
+test: fresh
+	./helpme WestAfricaDatabase 

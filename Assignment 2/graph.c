@@ -5,7 +5,8 @@
 
 #include <limits.h>
 
-node_t** create_graph(int N){
+node_t** create_graph(int N)
+{
 	/* allocates an NxN adjacency matrix of nodes */
 	int i;
 	node_t* nodes = calloc(N * N, sizeof(node_t));
