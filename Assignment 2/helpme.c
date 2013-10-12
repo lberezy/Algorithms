@@ -10,6 +10,7 @@
 
 
 
+
 int encode_supplies(char *str) {
 	/* Forms a bit-field (int) as per design.txt from valid string of
 	supplies. Returns 0 if X is in the input string.
@@ -48,10 +49,16 @@ int encode_supplies(char *str) {
 
 int main(int argc, char const *argv[])
 {
-	char *fname, loc_name[256], supply_string[32];
-	char str_buff[256];
+	char *fname, loc_name[BUFFER_SIZE], supply_string[BUFFER_SIZE];
+	char str_buff[BUFFER_SIZE];
 	FILE *fp;
-	int supply_data, n_nodes = 0;
+	int supply_data, node_n, n_nodes = 0;
+	/* for tokeniser use */
+	char *weight_str;
+	char *node_name;
+	int node, weight =10;
+
+
 
 	/* try to load the database */
 	if(argc != 2) {
@@ -70,12 +77,26 @@ int main(int argc, char const *argv[])
 	puts("What kinds of supplies do you need?");
 	scanf("%s", supply_string);
 	supply_data = encode_supplies(supply_string);
-	printf("%d", supply_data);
+	printf("%d\n", supply_data);
 
 	/* tokenise input DB */
 
-	while (fgets(str_buff, strlen(str_buff), fp) != NULL) {
-		fputs(str_buff, stdout);
+	/* first line contains number of nodes */
+	fgets(str_buff, BUFFER_SIZE, fp);
+	n_nodes = atoi(str_buff);
+	printf("Number of nodes: %d\n", n_nodes);
+	/* for each line of the DB, token first two items delimited by */
+	while (fgets(str_buff, BUFFER_SIZE, fp) != NULL) {
+		node_n = atoi(strtok(str_buff, DELIM_1));
+		node_name = strtok(NULL, DELIM_1);
+		supply_data = encode_supplies(strtok(NULL, DELIM_1));
+		printf("--\nNode: %d\nName: %s\nSupplies: %d\nConnections: \n", node_n, node_name, supply_data);
+		/* parse remainder of line with different delimiter */
+		while ((weight_str = strtok(strtok(NULL, DELIM_1), DELIM_2)) != NULL) {
+			sscanf(weight_str,"%d" DELIM_3 "%d", &node, &weight);
+			printf("Node: %d\tTime: %d\n", node, weight);
+		}
+
 	}
 
 

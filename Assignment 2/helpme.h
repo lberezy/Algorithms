@@ -30,5 +30,12 @@
 #define MEDICINE_C 'M'
 #define NOHELP 0
 
+#define BUFFER_SIZE 256
+/* delimites for tokenizing DB input */
+#define DELIM_1 "|"
+#define DELIM_2 ","
+#define DELIM_3 ":"
+
+#define STRSPLITTOI(STR, A, B) sscanf(STR,"%dDELIM_3%d",&A,&B)
 
 int encode_supplies(char *str);

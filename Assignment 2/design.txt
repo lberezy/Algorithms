@@ -1,3 +1,4 @@
+Lucas Berezy - 588236
 Problem comprehension and assumptions:
 
 From a selection of multiple sources (aid facilities), find the quickest

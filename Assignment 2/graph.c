@@ -16,3 +16,7 @@ node_t** create_graph(int N)
 	}
 	return graph;
 }
+
+void floyd_warshall(node_t** graph) {
+	
+}
