@@ -6,16 +6,16 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-typedef struct link { /* connects two nodes via time-weighted edge */
-	node_t* to, from;
-	int time;
-} link_t;
 
-typedef struct node { /* represents a source of aid and its connections */
-	int supplies : 5; /* bit field only needs 5 bits */
-	link_t* links;
+typedef struct node {
+	/* apparently one can specify the number of bits each item in a struct is
+	allocated (e.g. "int supplies : 5" for 5 bits as needed), but this looked
+	pretty dangerous. */
+	int ID, supplies;
+	char *name;
 } node_t;
 
-node_t** create_graph(int N)
+int** new_matrix(int size, int initial);
+void floyd_warshall(int **graph, int **next, int size);
 
 #endif
