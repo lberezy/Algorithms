@@ -124,7 +124,7 @@ node_t *nodefromDB(char *DBline, int **graph)
     database file. */
 
     node_t *tmp = malloc(sizeof tmp); /* temp node to construct */
-	char *str; /* temporary pointer for peeking into string */
+    char *str; /* temporary pointer for peeking into string */
     int tmp_id, tmp_weight; /* for tokenisation of node links */
 
     tmp->ID = atoi(strtok(DBline, DELIM_1));
@@ -139,7 +139,7 @@ node_t *nodefromDB(char *DBline, int **graph)
     the links to other nodes in the graph */
     while ((str = strtok(strtok(NULL, DELIM_1), DELIM_2)) != NULL)
     {
-    	/* has issue reading when nothing to tokenise */
+        /* has issue reading when nothing to tokenise */
         sscanf(str, "%d" DELIM_3 "%d", &tmp_id, &tmp_weight);
         graph[tmp->ID][tmp_id] = tmp_weight;
         printf("Node: %d\tTime: %d\n", tmp_id, tmp_weight);

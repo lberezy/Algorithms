@@ -38,8 +38,8 @@
 
 /* delimiters for tokenizing DB input */
 #define DELIM_1 "|"
-#define DELIM_2 ","
-#define DELIM_3 ":"
+#define DELIM_2 ",\n\r "
+#define DELIM_3 ":\n\r "
 
 int encode_supplies(char *str);
 node_t *nodefromDB(char *DBline, int **graph);
