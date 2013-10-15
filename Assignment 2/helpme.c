@@ -17,10 +17,12 @@ int main(int argc, char const *argv[])
     char *fname, dest_name[BUFFER_SIZE], supply_string[BUFFER_SIZE];
     char str_buff[BUFFER_SIZE];
     FILE *fp;
-    int supply_data, dest_ID, num_nodes = 0;
+    int i, mask, supply_data, dest_ID, num_nodes = 0, min_val = INF, 
+    	min_node = -1;
     /* for tokeniser use */
     int **graph, **next;
     node_t **nodes;
+
 
 
 
@@ -97,16 +99,13 @@ int main(int argc, char const *argv[])
     */
 
     /* Find the closest source of any help */
-    int destination, i , j, mask;
-    destination = dest_ID;
-    int min_val = INF, min_node = -1;
 
     if (supply_data == NOHELP) /* simply find the closest source of aid */
     {
         for (i = 0; i < num_nodes; i++)
         {
             /* only look at nodes that have some form of help */
-            if ((graph[i][destination] < min_val) && (nodes[i]->supplies > NOHELP))
+            if ((graph[i][dest_ID] < min_val) && (nodes[i]->supplies > NOHELP))
             {
                 min_val = graph[i][dest_ID];
                 min_node = i;
@@ -117,7 +116,7 @@ int main(int argc, char const *argv[])
         if (min_node > 0 && nodes[min_node]->supplies > NOHELP)
         {
         	printf("Closest centre with any aid: %s\n", nodes[min_node]->name);
-        	print_path(min_node, destination, next, nodes);
+        	print_path(min_node, dest_ID, next, nodes);
             printf("Has: "); print_supplies(nodes[min_node]->supplies);
             putchar('\n');
         }
@@ -251,8 +250,7 @@ void find_supply(int supply, int dest_ID, int supply_data, node_t **nodes,
     /* finds and prints out the closest location that can supply relief of
     a given kind. */
 
-    int destination, i;
-    int min_val = INF, min_node = 0;
+    int i, min_val = INF, min_node = 0;
 
     printf("Looking for: "); print_supplies(supply); putchar('\n');
     min_val = INF;
