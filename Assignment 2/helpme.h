@@ -74,5 +74,6 @@ node_t *nodefromDB(char *DBline, int **graph);
 int name_to_ID(char *name, node_t **nodes, int num_nodes);
 void find_supply(int supply, int dest_ID, int supply_data, node_t **nodes,
                  int **graph, int **next, int num_nodes);
+char *strdup(const char *str);
 
 #endif

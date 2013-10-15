@@ -284,6 +284,19 @@ void find_supply(int supply, int dest_ID, int supply_data, node_t **nodes,
 
 }
 
+char *strdup(const char *str)
+/* because it isn't in ISO-9899 (Standard C) and gcc on the
+server complains. */
+{
+    int n = strlen(str) + 1;
+    char *dup = malloc(n * sizeof dup);
+    if(dup)
+    {
+        strcpy(dup, str);
+    }
+    return dup;
+}
+
 node_t *nodefromDB(char *DBline, int **graph)
 {
     /* Constructs a graph node from a well-formatted string as found in the
