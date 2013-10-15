@@ -84,7 +84,6 @@ int main(int argc, char const *argv[])
     puts("What kinds of supplies do you need?");
     scanf("%s", supply_string);
     supply_data = encode_supplies(supply_string);
-    print_supplies(supply_data);
 
     /* 
 	**************
@@ -289,12 +288,12 @@ char *strdup(const char *str)
 server complains. */
 {
     int n = strlen(str) + 1;
-    char *dup = malloc(n * sizeof dup);
-    if(dup)
+    char *tmp = malloc(n * sizeof(char));
+    if(tmp)
     {
-        strcpy(dup, str);
+        strcpy(tmp, str);
     }
-    return dup;
+    return tmp;
 }
 
 node_t *nodefromDB(char *DBline, int **graph)
