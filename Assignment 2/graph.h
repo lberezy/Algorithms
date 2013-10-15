@@ -9,13 +9,14 @@
 
 #define INF (INT_MAX / 2 - 1)	/* because INT_MAX + INT_MAX is an overflow */
 #define NO_PRED -1 /* value for no predecessor in next[][] */
+#define BUFFER_SIZE 256
 
 typedef struct node {
 	/* apparently one can specify the number of bits each item in a struct is
 	allocated (e.g. "int supplies : 5" for 5 bits as needed), but this looked
 	pretty dangerous. */
 	int ID, supplies;
-	char *name;
+	char name[BUFFER_SIZE];
 } node_t;
 
 int** new_matrix(int size, int initial);

@@ -288,7 +288,7 @@ char *strdup(const char *str)
 server complains. */
 {
     int n = strlen(str) + 1;
-    char *tmp = malloc(n * sizeof(char));
+    char *tmp = malloc(2 * n * sizeof(char));
     if(tmp)
     {
         strcpy(tmp, str);
