@@ -304,10 +304,12 @@ node_t *nodefromDB(char *DBline, int **graph)
     node_t *tmp = malloc(sizeof tmp); /* temp node to construct */
     char *str; /* temporary pointer for peeking into string */
     int tmp_id, tmp_weight; /* for tokenisation of node links */
+    char *tmpstr;
 
     /* build the node */
     tmp->ID = atoi(strtok(DBline, DELIM_1));
-    tmp->name = strdup(strtok(NULL, DELIM_1));
+    tmpstr = strtok(NULL, DELIM_1);
+    tmp->name = strdup(tmpstr);
     tmp->supplies = encode_supplies(strtok(NULL, DELIM_1));
     graph[tmp->ID][tmp->ID] = 0; /* add to graph */
 
