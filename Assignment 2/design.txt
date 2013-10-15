@@ -97,5 +97,18 @@ My output (OSX):
 	Gao
 
 Server output:
+	./helpme helpfiles/WestAfricanDB.txt
+	Number of nodes: 6
+	Please see design.txt!!!
+	imbuktu
+	opti
+	aoudenni
+	Gao
+	amako
+	Niamey
+	Please enter the location of the disaster:
+	Gao
+	Destination ID: 3
+
 
 
