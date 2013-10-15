@@ -23,3 +23,6 @@ test: fresh
 
 debug: fresh
 	gdb  --args ./helpme helpfiles/WestAfricanDB.txt
+
+git: clean
+	git add . && git commit -m "." && git push

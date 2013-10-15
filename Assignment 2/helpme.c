@@ -71,6 +71,9 @@ int main(int argc, char const *argv[])
 	**************
     Gather info 
     */
+    for (i = 0; i < num_nodes; i++) {
+    	printf("%s\n", nodes[i]->name);
+    }
 
     puts("Please enter the location of the disaster:");
     scanf("%s", dest_name);
