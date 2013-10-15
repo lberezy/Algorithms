@@ -7,6 +7,9 @@
 #define GRAPH_H
 
 
+#define INF (INT_MAX / 2 - 1)	/* because INT_MAX + INT_MAX is an overflow */
+#define NO_PRED -1 /* value for no predecessor in next[][] */
+
 typedef struct node {
 	/* apparently one can specify the number of bits each item in a struct is
 	allocated (e.g. "int supplies : 5" for 5 bits as needed), but this looked
@@ -17,5 +20,7 @@ typedef struct node {
 
 int** new_matrix(int size, int initial);
 void floyd_warshall(int **graph, int **next, int size);
+void print_matrix(int **matrix, int size);
+void print_path(int a, int b, int **next, node_t **nodes);
 
 #endif

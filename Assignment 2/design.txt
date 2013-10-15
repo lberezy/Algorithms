@@ -24,22 +24,19 @@ Approach:
 	For each source, use Dijkstra's algorithm to compute the shortest path from
 	the source to the accident location. For N sources and the use of a min-heap
 	in the implementation of Dijkstra's algorithm, this would be
-	O(N|E + V|log|V|). Using a Fibonacci heap would improve this.
-	Uppon reconsideration, 
+	O(VE + V|log|V|). Using a Fibonacci heap would improve this.
+	Needs to be run M times (for each item of aid).
 
-Alternative approach:
+Alternative approach 1:
 	The Floyd-Warshall algorithm allows the graph to be processed to find
-	the shortest paths between all points. Thus, the shortest path from A to C
-	can be computed as the shortest path from A to B and then from B to C.
-	For each type of aid, iterate through all sources of aid to find the place
-	that can supply the required aid with the shortest travel time to the
-	incident. After the floyd-warshall graph representation is complete, this
-	should take A*(V-1) operations, where A is the number of aid items required.
-	In the case where no supplies are required, simply find the quickest path 
-	from an aid location to the incident site.
-	Don't forget to handle unconnected locations.
+	the shortest paths between all points (pairs). Thus, the shortest path from 
+	A to C can be computed as the shortest path from A to B and then from B 
+	to C. For each type of aid, iterate through all sources of aid to find the 
+	place that can supply the required aid with the shortest travel time to the
+	incident. The Floyd-Warshall algorithm runs in O(V^3), and to produce output
+	will require iterating over M aid items. Thus, O(V^3 + M) -> O(V^3).
 	
-Alternative approach:
+Alternative approach 2:
 	In order to solve this multiple source shortest path problem, a path tree 
 	from one source to a destination could be constructed and
 	at each source, this tree only needs to be altered to compute the shortest
@@ -47,6 +44,11 @@ Alternative approach:
 	destinations (e.g. choosing the location of a factory such that it was
 	optimally positioned near many shipping ports around a map from a set
 	of possible build sites)
+
+
+Alternative approach 1 was chosen due to ease of implementation (no queue) and
+allowed for cheaply finding resources rather than having to run an algorithm 
+again each time.
 
 ----
 
@@ -67,4 +69,9 @@ Alternative approach:
 	Each supply has the integer representation as above and specified in #define
 	This method allows for testing iteratively testing elements (>>= i &..) and 
 	multiple elements at a time.
-	This bit representation can fit inside a short int to save space.
+	This bit representation can fit inside a short int to save space if needed.
+
+
+Aftermath:
+
+	Yeah, I seriously regret using a bit field to store the relief supply data. It works, but I am not proud of the method used to get there.
