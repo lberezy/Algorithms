@@ -54,7 +54,7 @@ again each time.
 
 	information on supplies is stored in a bit-field with the following
 	format:
-	Boolean values for existance of resource.
+	Boolean values for existence of resource.
 	..00000XXXXX
 	------------
 	..00000BFWDM
@@ -75,3 +75,27 @@ again each time.
 Aftermath:
 
 	Yeah, I seriously regret using a bit field to store the relief supply data. It works, but I am not proud of the method used to get there.
+
+	There's still some ridiculous issue with the start of /some/
+	town names being cut off. I give up.
+	Apparently it's something to do with the \n\r in the input files and something. gdb'ing through sees it tokenise correctly on both the Solaris servers and OSX (my machine), and the program runs correctly on my machine (I can enter "Timbuktu" and it works), but on the department servers I need to enter "imbuktu". ("Gao" works fine on both...which is why I'm stumped).
+
+	(http://stackoverflow.com/questions/1039627/why-is-the-beginning-of-my-string-disappearing)
+
+
+My output (OSX):
+	./helpme helpfiles/WestAfricanDB.txt
+	Number of nodes: 6
+	Please see design.txt!!!
+	Timbuktu
+	Mopti
+	Taoudenni
+	Gao
+	Bamako
+	Niamey
+	Please enter the location of the disaster:
+	Gao
+
+Server output:
+
+

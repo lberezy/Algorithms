@@ -71,6 +71,9 @@ int main(int argc, char const *argv[])
 	**************
     Gather info 
     */
+
+    /* print out nodes once stored */
+    puts("Please see design.txt!!!");
     for (i = 0; i < num_nodes; i++) {
     	printf("%s\n", nodes[i]->name);
     }
