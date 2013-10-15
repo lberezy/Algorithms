@@ -34,7 +34,7 @@ Alternative approach 1:
 	to C. For each type of aid, iterate through all sources of aid to find the 
 	place that can supply the required aid with the shortest travel time to the
 	incident. The Floyd-Warshall algorithm runs in O(V^3), and to produce output
-	will require iterating over M aid items. Thus, O(V^3 + M) -> O(V^3).
+	will require iterating over M aid items through V choices. Thus, O(V^3 + V*M).
 	
 Alternative approach 2:
 	In order to solve this multiple source shortest path problem, a path tree 
@@ -47,8 +47,7 @@ Alternative approach 2:
 
 
 Alternative approach 1 was chosen due to ease of implementation (no queue) and
-allowed for cheaply finding resources rather than having to run an algorithm 
-again each time.
+allowed for cheaply finding resources rather than having to run an algorithm again each time.
 
 ----
 
