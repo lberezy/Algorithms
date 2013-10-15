@@ -109,5 +109,8 @@ Server output:
 	Gao
 	Destination ID: 3
 
+Extension:
+	Although not implemented, if the goal was to save petrol at the same time as delivering fast relief, the graph could be pre-processes into a minimum-spanning tree (using Kruskal's algorithm) and then traversed using the Floyd-Warshall (or Johnson's algorithm, as the graph will have become more-sparse (it's a tree now)). If this were to be further extended,it could be treated as a network-flow problem (assuming all aid starts en-route at the same time) and traffic could be managed appropriately (Ford-Fulkerson or a specialisation (Edmonds-Karp) to do breadth-first search on the tree).
+
 
 
