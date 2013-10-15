@@ -14,8 +14,17 @@ typedef struct node {
 	/* apparently one can specify the number of bits each item in a struct is
 	allocated (e.g. "int supplies : 5" for 5 bits as needed), but this looked
 	pretty dangerous. */
-	char *name;
 	int ID, supplies;
+	char *name;
+	char padding[32];
+	/* stupid error on server with last item in struct having its
+	first bits mangled when being added to nodes[].
+	Names under 8 characters were not affected, but anything like 'Timbuktu'
+	became 'imbuktu'. I don't even... 
+	Placing the ints at the end of the struct gave the same issue with the ints.
+	Stepped through with gdb, tokenization works fine, tmp node gets constructed
+	correctly. It gets mangled when added to nodes[]. Beyond confused with this
+	one. */
 
 } node_t;
 
